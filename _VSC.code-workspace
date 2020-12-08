@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "..\\BCFplugin.wiki"
 		}
 	],
 	"settings": {
