@@ -1,0 +1,26 @@
+﻿# This file uses UTF8 encoding. Lines starting with # or $, or ending with = do NOT need translating.
+$utf8
+
+# ENGLISH
+#========
+
+DisplayName=
+BCF Reader
+
+ID_BCFTab.DisplayName=
+BCF
+
+# BUTTON 1
+#=========
+ID_BCF_Show.DisplayName=
+Show BCF
+
+# BUTTON 2
+#=========
+ID_BCF_Load.DisplayName=
+Load BCF
+
+# BUTTON 3
+#=========
+ID_BCF_Append.DisplayName=
+Append BCF

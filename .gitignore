@@ -1,3 +1,7 @@
+# Release and obj
+Release/
+obj/
+
 # Prerequisites
 *.d
 

@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- ENGLISH -->
+
+<RibbonControl 
+x:Uid="BCFribbon"
+xmlns="clr-namespace:Autodesk.Windows;assembly=AdWindows" 
+xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+xmlns:adwi="clr-namespace:Autodesk.Internal.Windows;assembly=AdWindows"  
+xmlns:system="clr-namespace:System;assembly=mscorlib" 
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:local="clr-namespace:Autodesk.Navisworks.Gui.Roamer.AIRLook;assembly=navisworks.gui.roamer" 
+>
+  <RibbonTab Id="ID_BCFTab" KeyTip="C">
+    <RibbonPanel Id="ID_BCFPan" x:Uid="RibbonPanel_BCF">
+       <RibbonPanelSource Id="ID_BCFP1" x:Uid="BCFP1" KeyTip="B" Title="Lecteur BCF">
+          <local:NWRibbonButton 
+            x:Uid="BCF_Show" 
+            Id="ID_BCF_Show" 
+            Size="Large" 
+            KeyTip="S" 
+            LargeImage="..\Images\BCF32.ico" 
+            ShowText="True" 
+            Orientation="Vertical"
+            ToolTip="Afficher le paneau BCF"
+          />
+          <local:NWRibbonButton 
+            x:Uid="BCF_Load" 
+            Id="ID_BCF_Load" 
+            Size="Large" 
+            KeyTip="L" 
+            LargeImage="..\Images\BCFload32.ico" 
+            ShowText="True" 
+            Orientation="Vertical"
+            ToolTip="charger un fichier BCF"
+          />
+          <local:NWRibbonButton 
+            x:Uid="BCF_Append" 
+            Id="ID_BCF_Append" 
+            Size="Large" 
+            KeyTip="A" 
+            LargeImage="..\Images\BCFappend32.ico" 
+            ShowText="True" 
+            Orientation="Vertical"
+            ToolTip="Ajouter un fichier BCF sans supprimer les commentaires déjà présents"
+          />
+       </RibbonPanelSource>
+    </RibbonPanel>
+  </RibbonTab>
+</RibbonControl>
+
+<!-- 
+  RibbonTab defines a tab on the ribbon
+  Attributes for RibbonTab include:
+  Id     = Defines a unique identifier for the ribbon tab - this must be identical to the ribbon tab Id in compiled code.
+  Title  = Defines the text than appears on the tab. This overrides the DisplayName defined by the RibbonTab attribute in compiled code.         
+  KeyTip = The key or combination of keys that enables the tab to be activated using the keyboard rather than the mouse. Keytips are made visible by pressing <Alt>.
+-->
+
+<!-- 
+  local:NWRibbonButton indicates a button in the ribbon.
+  Attributes for button include:
+  Size: Standard (default) or Large.
+  Image = Image to display (overrides that defined by plugin attributes in the compiled code) The image path defines the location relative to the ribbon definition file (i.e. this), hence our image path here indicates that the images are located in an Images subdirectory next to the sub-directory when the ribbon file is located. If you wish you can define the image location relative to the Roamer executable by using Image="pack://siteOfOrigin:,,,{image location}" where {image location} is the location of the icon (or png file) relative to the executable. Standard images must be 16x16 pixels. For large buttons specify Size="Large" and define a LargeImage attribute, which must be 32x32 pixels.
+  KeyTip = the key or combination of keys that enables the button to be activated using the keyboard rather than the mouse. Keytips are made visible by pressing <Alt> .
+  Orientation = "Horizontal" or "Vertical": Horizontal places the buttons side by side with the Text. Vertical places the buttons above the text.
+  ShowText : indicates whether the button should display its Text with the button, or image only.
+  Text: text displayed on the button if ShowText is true (overrides that defined by plugin attributes in the compiled code) 
+-->

@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"interrupt.h": "c",
+			"io.h": "c"
+		},
+		"files.exclude": {
+			"*.code-workspace": true,
+			"*.pnp*": true,
+			"objects": true,
+			"release": true
+		}
+	}
+}

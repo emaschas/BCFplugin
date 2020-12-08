@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <NavisProduct>Manage</NavisProduct>
+    <NavisVersion>2021</NavisVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform>AnyCPU</Platform>
+    <ProjectGuid>{E6A1343E-168F-40BF-9AA5-180B9E00C212}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>BCFplugin</RootNamespace>
+    <AssemblyName>BCFplugin</AssemblyName>
+    <Company>SUEZ</Company>
+    <Product>BCFplugin</Product>
+    <TargetFramework>net472</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+
+  <!-- Only Release -->
+  <PropertyGroup>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+
+  <ItemGroup>
+
+    <Reference Include="Autodesk.Navisworks.Api">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Autodesk\Navisworks $(NavisProduct) $(NavisVersion)\Autodesk.Navisworks.Api.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+
+    <None Include="*\*.name"><CopyToOutputDirectory>Always</CopyToOutputDirectory></None>
+    <None Include="*\*.xaml"><SubType>Designer</SubType><CopyToOutputDirectory>Always</CopyToOutputDirectory></None>
+    <None Include="Images\*.ico"><CopyToOutputDirectory>Always</CopyToOutputDirectory></None>
+    <None Include="Images\*.jpg"><CopyToOutputDirectory>Always</CopyToOutputDirectory></None>
+
+  </ItemGroup>
+
+  <PropertyGroup>
+    <LocalDir>$(ProjectDir)\</LocalDir>
+    <AppDir>%appdata%\Autodesk Navisworks $(NavisProduct) $(NavisVersion)\</AppDir>
+    <Plugins>$(AppDir)Plugins\</Plugins>
+    <Destination>$(Plugins)$(AssemblyName)\</Destination>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="Build">
+    <Exec Command="echo."/>
+    <Exec Command="echo TARGET  NAME   : $(AssemblyName)"/>
+    <!--Exec Command="echo TARGET  DIR    : $(TargetDir)"/-->
+    <!--Exec Command="echo PROJECT DIR    : $(ProjectDir)"/-->
+    <Exec Command="echo COPY PLUGIN IN : $(Destination)"/>
+    <Exec Command="echo."/>
+    <Exec Command='IF NOT EXIST "$(Plugins)" mkdir "$(Plugins)"' />
+    <Exec Command='IF EXIST "$(Destination)" rmdir /S /Q "$(Destination)"'/>
+    <Exec Command='XCOPY /Q /Y /E "$(TargetDir)*.*" "$(Destination)"> nul'/>
+  </Target>
+
+</Project>
