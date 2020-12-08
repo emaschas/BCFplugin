@@ -5,7 +5,7 @@ This plugin can be used with
 - Navisworks Simulate 2021
 - Navisworks Manage 2021
 ## Screenshot :
-![Screenshot](https://github.com/emaschas/BCFplugin.Screenshot.png)
+![Screenshot](https://github.com/emaschas/BCFplugin/blob/main/Screenshot.png)
 ## Install :
 1. Download the zip file from [Releases](https://github.com/emaschas/BCFplugin/releases).
 2. Unzip it in %appdata%\Autodesk Navisworks Manage 2021\Plugins
