@@ -7,7 +7,7 @@ This plugin can be used with
 ## Screenshot :
 ![Screenshot](https://github.com/emaschas/BCFplugin.Screenshot.png)
 ## Install :
-1. Download the zip file from Release.
+1. Download the zip file from [Releases](https://github.com/emaschas/BCFplugin/releases).
 2. Unzip it in %appdata%\Autodesk Navisworks Manage 2021\Plugins
 3. Start Navisworks and select the "BCF" tab.
 4. Click on "Show BCF" (first button).
