@@ -1,4 +1,4 @@
-# BCFplugin
+# Navisworks BCFplugin
 This developpement is a NAVISWORKS plugin that reads and displays the Topics and Comments of BCF files.
 ## Compatibility
 This plugin can be used with 
