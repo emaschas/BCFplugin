@@ -1,0 +1,13 @@
+﻿# This file uses UTF8 encoding. Lines starting with # or $, or ending with = do NOT need translating.
+$utf8
+
+# ENGLISH
+#=========
+
+Pict.ToolTip=
+Double Click to move the camera
+
+Export.Question={
+Confirm the export of all the BCF Topics
+into Navisworks viewpoints ?
+}

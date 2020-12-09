@@ -106,13 +106,13 @@ namespace BCFpanel {
     }
 
     /// <summary> Delegate for the method provided by the user to move the camera </summary>
-    public delegate void CameraMover(Double Cx, Double Cy, Double Cz, Double Dx, Double Dy, Double Dz, Double Ux, Double Uy, Double Uz, Double field, List<String> components);
+    public delegate void CameraMover(BCFclass.Viewpoint viewpoint);
 
     /// <summary> The method provided by the user to move the camera (can be null if not used) </summary>
     public CameraMover MoveCamera;
 
     /// <summary> BCFpanel constructor with CameraMover</summary>
-    public BCFpanelContent(Panel parent, CameraMover cameramethod) {
+    public BCFpanelContent(Panel parent, CameraMover cameramethod, String pictToolText) {
       parent.SuspendLayout();
       MoveCamera = cameramethod;
       String exe = Application.ExecutablePath;
@@ -146,7 +146,7 @@ namespace BCFpanel {
       pict.BackColor = Color.Beige;
       // pict click handlers
       pict.DoubleClick += new EventHandler(pict_DoubleClick);
-      tooltip.SetToolTip(pict, "Double click to move the camera");
+      if(pictToolText != "") tooltip.SetToolTip(pict, pictToolText);
       // Vertical Split Container
       Vsplit = new SplitContainer();
       Vsplit.TabIndex = 1;
@@ -192,7 +192,7 @@ namespace BCFpanel {
     }
 
     /// <summary> BCFpanel constructor without CameraMover</summary>
-    public BCFpanelContent(Panel parent) : this(parent, null) { }
+    public BCFpanelContent(Panel parent) : this(parent, null, "") { }
 
     /// <summary> Fills the details of the selected File in the list view and the image </summary>
     /// <param name="file">Selected Topic</param>
@@ -232,11 +232,15 @@ namespace BCFpanel {
         if(vp.Image != null) {
           pict.Image = vp.Image;
           ratio = (double)vp.Image.Height / (double)vp.Image.Width;
-          ResizeImage();
         } else { // No Image
           pict.Image = null;
+          ratio = 0.0;
         }
+      } else { // No viewpoint -> No Image
+        pict.Image = null;
+        ratio = 0.0;
       }
+      ResizeImage();
     }
 
     /// <summary> Fills the details of the selected Comment in the list view and the image </summary>
@@ -294,7 +298,7 @@ namespace BCFpanel {
     /// <summary> Select a BCF file </summary>
     /// <returns>The file name or an empty string if the user cancels.</returns>
     private string SelectFile() {
-      string filePath = "";
+      string filePath = null;
       using(OpenFileDialog openFileDialog = new OpenFileDialog()) {
         openFileDialog.Filter = "BCF files (*.bcf)|*.bcf*|BCFZIP files (*.bcfzip)|*.bcfzip|All files (*.*)|*.*";
         openFileDialog.FilterIndex = 1;
@@ -304,15 +308,16 @@ namespace BCFpanel {
       return filePath;
     }
 
-
     /// <summary> Response to the menu event : load BCF file </summary>
     /// <param name="sender">Not used</param>
     /// <param name="args">Not used</param>
     public void OpenFile() {
       string filePath = SelectFile();
-      bcfs.Clear();
-      bcfs.Add(filePath);
-      Populate();
+      if(filePath != null) {
+        bcfs.Clear();
+        bcfs.Add(filePath);
+        Populate();
+      }
     }
 
     /// <summary> Response to the menu event : append BCF file </summary>
@@ -320,8 +325,10 @@ namespace BCFpanel {
     /// <param name="args">Not used</param>
     public void AppendFile() {
       string filePath = SelectFile();
-      bcfs.Add(filePath);
-      Populate();
+      if(filePath != null) {
+        bcfs.Add(filePath);
+        Populate();
+      }
     }
 
     /// <summary> Populate the tree with the Files, Topics, and Comments  </summary>
@@ -364,16 +371,15 @@ namespace BCFpanel {
         }
       }
       if(v != null) {
-        if(v.CamType == CameraType.Perspective) {
+        if(v.CamType != CameraType.NoCamera) {
           if(MoveCamera != null)
-            MoveCamera(v.CamX, v.CamY, v.CamZ, v.DirX, v.DirY, v.DirZ, v.UpX, v.UpY, v.UpZ, v.Field, v.Components);
+            MoveCamera(v);
           else
             MessageBox.Show(
               $"Pos. :\t{v.CamX:F3},\t{v.CamY:F3},\t{v.CamZ:F3}\n" +
               $"Dir. :\t{v.DirX:F3},\t{v.DirY:F3},\t{v.DirZ:F3}\n" +
               $"Up :\t{v.UpX:F3},\t{v.UpY:F3},\t{v.UpZ:F3}\n" +
               $"Field :\t{v.Field:F1}", "Camera:");
-
         }
       }
     }
@@ -427,6 +433,12 @@ namespace BCFpanel {
       } catch { res = isodate; }
       return res;
     }
+
+    #endregion
+
+    #region "Export of Topics"
+
+    public List<BCFclass.BCFfile> getFiles() { return bcfs.BCFfiles; }
 
     #endregion
 

@@ -11,59 +11,70 @@ xmlns:system="clr-namespace:System;assembly=mscorlib"
 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 xmlns:local="clr-namespace:Autodesk.Navisworks.Gui.Roamer.AIRLook;assembly=navisworks.gui.roamer" 
 >
-  <RibbonTab Id="ID_BCFTab" KeyTip="T1">
-    <RibbonPanel Id="ID_BCFPan" x:Uid="RibbonPanel_BCF">
-       <RibbonPanelSource Id="ID_BCFP1" x:Uid="BCFP1" KeyTip="B" Title="BCF Reader">
-          <local:NWRibbonButton 
-            x:Uid="BCF_Show" 
-            Id="ID_BCF_Show" 
+  <RibbonTab Id="ID_BCFTab" KeyTip="T1" Title="BCF">
+    <RibbonPanel Id="ID_BCFPan1" >
+       <RibbonPanelSource Id="ID_BCFP" KeyTip="B" Title="BCF Panel">
+          <local:NWRibbonButton Id="ID_BCF_Show" 
             Size="Large" 
             KeyTip="S" 
             LargeImage="..\Images\BCF32.ico" 
             ShowText="True" 
             Orientation="Vertical"
+            Text="Show"
             ToolTip="Show BCF panel"
           />
-          <local:NWRibbonButton 
-            x:Uid="BCF_Load" 
-            Id="ID_BCF_Load" 
+       </RibbonPanelSource>
+    </RibbonPanel>
+    <RibbonPanel Id="ID_BCFPan2" >
+       <RibbonPanelSource Id="ID_BCFP2" KeyTip="C" Title="BCF Files">
+          <local:NWRibbonButton Id="ID_BCF_Load" 
             Size="Large" 
             KeyTip="L" 
             LargeImage="..\Images\BCFload32.ico" 
             ShowText="True" 
             Orientation="Vertical"
-            ToolTip="Load BCF file"
+            Text="Load"
+            ToolTip="Load a new BCF file"
           />
-          <local:NWRibbonButton 
-            x:Uid="BCF_Append" 
-            Id="ID_BCF_Append" 
+          <local:NWRibbonButton Id="ID_BCF_Append" 
             Size="Large" 
             KeyTip="A" 
             LargeImage="..\Images\BCFappend32.ico" 
             ShowText="True" 
             Orientation="Vertical"
-            ToolTip="Append BCF file"
+            Text="Append"
+            ToolTip="Append BCF file to the already loaded ones"
+          />
+          <RibbonSeparator/>
+          <local:NWRibbonButton Id="ID_BCF_Export" 
+            Size="Large" 
+            KeyTip="X" 
+            LargeImage="..\Images\BCFexport32.ico" 
+            ShowText="True" 
+            Orientation="Vertical"
+            Text="Export"
+            ToolTip="Export BCF topics as Navisworks Viewpoints"
           />
        </RibbonPanelSource>
     </RibbonPanel>
   </RibbonTab>
 </RibbonControl>
 
+<!-- Note : j'ai supprimé les x:Uid="..." -->
+
 <!-- 
-  RibbonTab defines a tab on the ribbon
-  Attributes for RibbonTab include:
+  RibbonTab defines a tab on the ribbon. Attributes :
   Id     = Defines a unique identifier for the ribbon tab - this must be identical to the ribbon tab Id in compiled code.
   Title  = Defines the text than appears on the tab. This overrides the DisplayName defined by the RibbonTab attribute in compiled code.         
   KeyTip = The key or combination of keys that enables the tab to be activated using the keyboard rather than the mouse. Keytips are made visible by pressing <Alt>.
 -->
 
 <!-- 
-  local:NWRibbonButton indicates a button in the ribbon.
-  Attributes for button include:
-  Size: Standard (default) or Large.
-  Image = Image to display (overrides that defined by plugin attributes in the compiled code) The image path defines the location relative to the ribbon definition file (i.e. this), hence our image path here indicates that the images are located in an Images subdirectory next to the sub-directory when the ribbon file is located. If you wish you can define the image location relative to the Roamer executable by using Image="pack://siteOfOrigin:,,,{image location}" where {image location} is the location of the icon (or png file) relative to the executable. Standard images must be 16x16 pixels. For large buttons specify Size="Large" and define a LargeImage attribute, which must be 32x32 pixels.
-  KeyTip = the key or combination of keys that enables the button to be activated using the keyboard rather than the mouse. Keytips are made visible by pressing <Alt> .
+  local:NWRibbonButton indicates a button in the ribbon. Attributes :
+  Size        = Standard (default) or Large.
+  Image       = Image to display (overrides that defined by plugin attributes in the compiled code) The image path defines the location relative to the ribbon definition file (i.e. this), hence our image path here indicates that the images are located in an Images subdirectory next to the sub-directory when the ribbon file is located. If you wish you can define the image location relative to the Roamer executable by using Image="pack://siteOfOrigin:,,,{image location}" where {image location} is the location of the icon (or png file) relative to the executable. Standard images must be 16x16 pixels. For large buttons specify Size="Large" and define a LargeImage attribute, which must be 32x32 pixels.
+  KeyTip      = the key or combination of keys that enables the button to be activated using the keyboard rather than the mouse. Keytips are made visible by pressing <Alt> .
   Orientation = "Horizontal" or "Vertical": Horizontal places the buttons side by side with the Text. Vertical places the buttons above the text.
-  ShowText : indicates whether the button should display its Text with the button, or image only.
-  Text: text displayed on the button if ShowText is true (overrides that defined by plugin attributes in the compiled code) 
+  ShowText    = indicates whether the button should display its Text with the button, or image only.
+  Text        = text displayed on the button if ShowText is true (overrides that defined by plugin attributes in the compiled code) 
 -->
