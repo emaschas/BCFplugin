@@ -1,9 +1,9 @@
 :: WIX
 
 candle BCFplugin.wxs
-@pause
+@if ERRORLEVEL 1 pause
 
 light  BCFplugin.wixobj
-@pause
+@if ERRORLEVEL 1 pause
 
 @del /Q BCFplugin.wixpdb BCFplugin.wixobj

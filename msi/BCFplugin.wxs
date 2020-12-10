@@ -2,69 +2,97 @@
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
   <Product Name='BCFplugin 2.0' Id='84eeeeba-da6c-4228-bf67-fd6513f84243' UpgradeCode='bed6ecea-8a2f-4a72-a6f4-115e1e9378ed' Language='1033' Codepage='1252' Version='1.0.0' Manufacturer='Maschas'>
 
-    <Package Id='*' Keywords='Installer' Description="BCFplugin 2.0 Installer" 
-    Comments='Navisworks plugin installer.' Manufacturer='Maschas' InstallerVersion='100' 
-    InstallScope='perUser' InstallPrivileges='limited'
-    Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+    <Package Id='*' Keywords='Installer' Description="BCFplugin 2.0 Installer" Comments='Navisworks plugin installer.' Manufacturer='Maschas' InstallerVersion='100' InstallScope='perUser' InstallPrivileges='limited' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+
+    <SetDirectory Id='INSTALLFOLDER' Value='$(env.AppData)'/>
+
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+      <Directory Id='INSTALLFOLDER' Name='AppData'>
+
+        <Directory Id='MANAGE2021' Name='Autodesk Navisworks Manage 2021'>
+          <Directory Id='M_PLUGINS' Name='Plugins'>
+            <Directory Id='M_BCFPLUGIN' Name='BCFplugin'>
+              <Component Id='M_BCFplugin' Guid='a1ba7bdb-812f-4556-adc7-5b287fcba318'>
+                <File Id='M_BCFdll' Name='BCFplugin.dll' Source='..\Release\net472\BCFplugin.dll' KeyPath='yes'/>
+                <File Id='M_BCFpdb' Name='BCFplugin.pdb' Source='..\Release\net472\BCFplugin.pdb' KeyPath='no'/>
+              </Component>
+              <Directory Id='M_IMAGES' Name='Images'>
+                <Component Id='M_Images' Guid='a1ba7bdb-812f-4556-adc7-5b287fcba319'>
+                  <File Id='M_BCFico' Name='BCF.ico' Source = '..\Release\net472\Images\BCF.ico' KeyPath='no'/>
+                  <File Id='M_BCF16ico' Name='BCF16.ico' Source = '..\Release\net472\Images\BCF16.ico' KeyPath='no'/>
+                  <File Id='M_BCF32ico' Name='BCF32.ico' Source = '..\Release\net472\Images\BCF32.ico' KeyPath='no'/>
+                  <File Id='M_BCFappend32ico' Name='BCFappend32.ico' Source = '..\Release\net472\Images\BCFappend32.ico' KeyPath='no'/>
+                  <File Id='M_BCFexport32ico' Name='BCFexport32.ico' Source = '..\Release\net472\Images\BCFexport32.ico' KeyPath='no'/>
+                  <File Id='M_BCFload32ico' Name='BCFload32.ico' Source = '..\Release\net472\Images\BCFload32.ico' KeyPath='no'/>
+                </Component>
+              </Directory>
+              <Directory Id='M_EN' Name='en-US'>
+                <Component Id='M_EnFiles' Guid='a1ba7bdb-812f-4556-adc7-5b287fcba320'>
+                  <File Id='M_BCFpluginnameEN' Name='BCFplugin.name' Source='..\Release\net472\en-Us\BCFplugin.name' KeyPath='no'/>
+                  <File Id='M_BCFribbonxamlEN' Name='BCFribbon.xaml' Source='..\Release\net472\en-Us\BCFribbon.xaml' KeyPath='no'/>
+                </Component>
+              </Directory>
+              <Directory Id='M_FR' Name='fr-FR'>
+                <Component Id='M_FrFiles' Guid='a1ba7bdb-812f-4556-adc7-5b287fcba321'>
+                  <File Id='M_BCFpluginnameFR' Name='BCFplugin.name' Source='..\Release\net472\fr-FR\BCFplugin.name' KeyPath='no'/>
+                  <File Id='M_BCFribbonxamlFR' Name='BCFribbon.xaml' Source='..\Release\net472\fr-FR\BCFribbon.xaml' KeyPath='no'/>
+                </Component>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+
+        <Directory Id='S_IMULATE2021' Name='Autodesk Navisworks Simulate 2021'>
+          <Directory Id='S_PLUGINS' Name='Plugins'>
+            <Directory Id='S_BCFPLUGIN' Name='BCFplugin'>
+              <Component Id='S_BCFplugin' Guid='a1ba7bdb-812f-4556-adc7-5b287fcba418'>
+                <File Id='S_BCFdll' Name='BCFplugin.dll' Source='..\Release\net472\BCFplugin.dll' KeyPath='yes'/>
+                <File Id='S_BCFpdb' Name='BCFplugin.pdb' Source='..\Release\net472\BCFplugin.pdb' KeyPath='no'/>
+              </Component>
+              <Directory Id='S_IMAGES' Name='Images'>
+                <Component Id='S_Images' Guid='a1ba7bdb-812f-4556-adc7-5b287fcba419'>
+                  <File Id='S_BCFico' Name='BCF.ico' Source = '..\Release\net472\Images\BCF.ico' KeyPath='no'/>
+                  <File Id='S_BCF16ico' Name='BCF16.ico' Source = '..\Release\net472\Images\BCF16.ico' KeyPath='no'/>
+                  <File Id='S_BCF32ico' Name='BCF32.ico' Source = '..\Release\net472\Images\BCF32.ico' KeyPath='no'/>
+                  <File Id='S_BCFappend32ico' Name='BCFappend32.ico' Source = '..\Release\net472\Images\BCFappend32.ico' KeyPath='no'/>
+                  <File Id='S_BCFexport32ico' Name='BCFexport32.ico' Source = '..\Release\net472\Images\BCFexport32.ico' KeyPath='no'/>
+                  <File Id='S_BCFload32ico' Name='BCFload32.ico' Source = '..\Release\net472\Images\BCFload32.ico' KeyPath='no'/>
+                </Component>
+              </Directory>
+              <Directory Id='S_EN' Name='en-US'>
+                <Component Id='S_EnFiles' Guid='a1ba7bdb-812f-4556-adc7-5b287fcba420'>
+                  <File Id='S_BCFpluginnameEN' Name='BCFplugin.name' Source='..\Release\net472\en-Us\BCFplugin.name' KeyPath='no'/>
+                  <File Id='S_BCFribbonxamlEN' Name='BCFribbon.xaml' Source='..\Release\net472\en-Us\BCFribbon.xaml' KeyPath='no'/>
+                </Component>
+              </Directory>
+              <Directory Id='S_FR' Name='fr-FR'>
+                <Component Id='S_FrFiles' Guid='a1ba7bdb-812f-4556-adc7-5b287fcba421'>
+                  <File Id='S_BCFpluginnameFR' Name='BCFplugin.name' Source='..\Release\net472\fr-FR\BCFplugin.name' KeyPath='no'/>
+                  <File Id='S_BCFribbonxamlFR' Name='BCFribbon.xaml' Source='..\Release\net472\fr-FR\BCFribbon.xaml' KeyPath='no'/>
+                </Component>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+
+      </Directory>
+    </Directory>
 
     <Media Id='1' Cabinet='BCFplugin.cab' EmbedCab='yes' DiskPrompt="CD-ROM #1" />
     <Property Id='DiskPrompt' Value="BCFplugin 2.0 Installation [1]" />
 
-
-    <SetDirectory Id='INSTALLFOLDER' Value='$(env.AppData)\Autodesk Navisworks Manage 2021'/>
-
-    <Directory Id='TARGETDIR' Name='SourceDir'>
-      <Directory Id='INSTALLFOLDER' Name='Autodesk Navisworks Manage 2021'>
-        <Directory Id='PLUGINS' Name='Plugins'>
-          <Directory Id='BCFPLUGIN' Name='BCFplugin'>
-            <Directory Id='IMAGES' Name='Images'/>
-            <Directory Id='EN' Name='en-US'/>
-            <Directory Id='FR' Name='fr-FR'/>
-          </Directory>
-        </Directory>
-      </Directory>
-    </Directory>
-
-    <DirectoryRef Id="BCFPLUGIN">
-      <Component Id='BCFplugin' Guid='a1ba7bdb-812f-4556-adc7-5b287fcba318'>
-        <File Id='BCFdll' Name='BCFplugin.dll' DiskId='1' Source='..\Release\net472\BCFplugin.dll' KeyPath='yes'/>
-        <File Id='BCFpdb' Name='BCFplugin.pdb' DiskId='1' Source='..\Release\net472\BCFplugin.pdb' KeyPath='no'/>
-      </Component>
-    </DirectoryRef>
-
-    <DirectoryRef Id="IMAGES">
-      <Component Id='Images' Guid='a1ba7bdb-812f-4556-adc7-5b287fcba319'>
-        <File Id='BCFico' Name='BCF.ico' DiskId='1' Source = '..\Release\net472\Images\BCF.ico' KeyPath='no'/>
-        <File Id='BCF16ico' Name='BCF16.ico' DiskId='1' Source = '..\Release\net472\Images\BCF16.ico' KeyPath='no'/>
-        <File Id='BCF32ico' Name='BCF32.ico' DiskId='1' Source = '..\Release\net472\Images\BCF32.ico' KeyPath='no'/>
-        <File Id='BCFappend32ico' Name='BCFappend32.ico' DiskId='1' Source = '..\Release\net472\Images\BCFappend32.ico' KeyPath='no'/>
-        <File Id='BCFexport32ico' Name='BCFexport32.ico' DiskId='1' Source = '..\Release\net472\Images\BCFexport32.ico' KeyPath='no'/>
-        <File Id='BCFload32ico' Name='BCFload32.ico' DiskId='1' Source = '..\Release\net472\Images\BCFload32.ico' KeyPath='no'/>
-      </Component>
-    </DirectoryRef>
-
-    <DirectoryRef Id="EN">
-      <Component Id='EnFiles' Guid='a1ba7bdb-812f-4556-adc7-5b287fcba320'>
-        <File Id='BCFpluginnameEN' Name='BCFplugin.name' DiskId='1' Source='..\Release\net472\en-Us\BCFplugin.name' KeyPath='no'/>
-        <File Id='BCFribbonxamlEN' Name='BCFribbon.xaml' DiskId='1' Source='..\Release\net472\en-Us\BCFribbon.xaml' KeyPath='no'/>
-      </Component>
-    </DirectoryRef>
-
-    <DirectoryRef Id="FR">
-      <Component Id='FrFiles' Guid='a1ba7bdb-812f-4556-adc7-5b287fcba321'>
-        <File Id='BCFpluginnameFR' Name='BCFplugin.name' DiskId='1' Source='..\Release\net472\fr-FR\BCFplugin.name' KeyPath='no'/>
-        <File Id='BCFribbonxamlFR' Name='BCFribbon.xaml' DiskId='1' Source='..\Release\net472\fr-FR\BCFribbon.xaml' KeyPath='no'/>
-      </Component>
-    </DirectoryRef>
-
     <Feature Id='Manage_2021' Level='1'>
-      <ComponentRef Id='BCFplugin' />
-      <ComponentRef Id='Images' />
-      <ComponentRef Id='EnFiles' />
-      <ComponentRef Id='FrFiles' />
+      <ComponentRef Id='M_BCFplugin' />
+      <ComponentRef Id='M_Images' />
+      <ComponentRef Id='M_EnFiles' />
+      <ComponentRef Id='M_FrFiles' />
     </Feature>
-
-    <!--Icon Id="BCF.ico" SourceFile="C:\GITHUB\BCFplugin\Release\net472\Images\BCF.ico" /-->
+    <Feature Id='Simulate_2021' Level='1'>
+      <ComponentRef Id='S_BCFplugin' />
+      <ComponentRef Id='S_Images' />
+      <ComponentRef Id='S_EnFiles' />
+      <ComponentRef Id='S_FrFiles' />
+    </Feature>
 
   </Product>
 </Wix>
