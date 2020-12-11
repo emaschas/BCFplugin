@@ -41,7 +41,7 @@
             </Directory>
           </Directory>
         </Directory>
-
+        
         <Directory Id='S_IMULATE2021' Name='Autodesk Navisworks Simulate 2021'>
           <Directory Id='S_PLUGINS' Name='Plugins'>
             <Directory Id='S_BCFPLUGIN' Name='BCFplugin'>
