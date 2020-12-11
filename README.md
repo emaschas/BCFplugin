@@ -1,20 +1,22 @@
 # Navisworks BCFplugin
 
-This developpement is a NAVISWORKS plugin that reads and displays the Topics and Comments of BCF files.<br/>
+This developpement is a NAVISWORKS plugin that reads and displays the Topics and Comments of BCF files.
+
 In addition, the BCF topics can be exported as Navisworks viewpoints to make them accessible with Navisworks Freedom.
 
 ## Compatibility
+
 This plugin can be used with 
 - Navisworks Simulate 2021
 - Navisworks Manage 2021
 
-<b>Warning:</b> Navisworks Freedom does not support plugins.
+<u><b>Warning:</b></u> Navisworks Freedom does not support plugins.
 
-## Screenshot :
+## Screenshot
 
 ![Screenshot](https://github.com/emaschas/BCFplugin/blob/main/Screenshot.png)
 
-## Install :
+## Install
 
 1. Download the .msi file from [Releases](https://github.com/emaschas/BCFplugin/releases).
 2. Double click on it
