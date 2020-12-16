@@ -24,21 +24,21 @@ namespace BCFplugin {
   public class BCFDockPane : DockPanePlugin {
 
     /// <Summary> Copy the BCF Viewpoint in Navis Viewpoint </Summary>
-    public Boolean CopyBCFcamera(BCFclass.Viewpoint bvp, Navis.Viewpoint nvp) {
+    public Boolean CopyBCFcamera(BCFvisinfo.VisualizationInfo bvp, Navis.Viewpoint nvp) {
       double scale = BCFscale();
-      if(bvp.CamType == BCFclass.CameraType.Perspective) {
-        nvp.Position = new Navis.Point3D(bvp.CamX / scale, bvp.CamY / scale, bvp.CamZ / scale);
-        nvp.AlignDirection(new Navis.Vector3D(bvp.DirX, bvp.DirY, bvp.DirZ));
-        nvp.AlignUp(new Navis.Vector3D(bvp.UpX, bvp.UpY, bvp.UpZ));
+      if(bvp.PerspectiveCamera != null) {
+        nvp.Position = new Navis.Point3D(bvp.PerspectiveCamera.CameraViewPoint.X / scale, bvp.PerspectiveCamera.CameraViewPoint.Y / scale, bvp.PerspectiveCamera.CameraViewPoint.Z / scale);
+        nvp.AlignDirection(new Navis.Vector3D(bvp.PerspectiveCamera.CameraDirection.X, bvp.PerspectiveCamera.CameraDirection.Y, bvp.PerspectiveCamera.CameraDirection.Z));
+        nvp.AlignUp(new Navis.Vector3D(bvp.PerspectiveCamera.CameraUpVector.X, bvp.PerspectiveCamera.CameraUpVector.Y, bvp.PerspectiveCamera.CameraUpVector.Z));
         nvp.Projection = Navis.ViewpointProjection.Perspective;
-        nvp.HeightField = bvp.Field * Math.PI / 180.0;
+        nvp.HeightField = bvp.PerspectiveCamera.FieldOfView * Math.PI / 180.0;
         return true;
-      } else if(bvp.CamType == BCFclass.CameraType.Orthogonal) {
-        nvp.Position = new Navis.Point3D(bvp.CamX / scale, bvp.CamY / scale, bvp.CamZ / scale);
-        nvp.AlignDirection(new Navis.Vector3D(bvp.DirX, bvp.DirY, bvp.DirZ));
-        nvp.AlignUp(new Navis.Vector3D(bvp.UpX, bvp.UpY, bvp.UpZ));
+      } else if(bvp.OrthogonalCamera != null) {
+        nvp.Position = new Navis.Point3D(bvp.OrthogonalCamera.CameraViewPoint.X / scale, bvp.OrthogonalCamera.CameraViewPoint.Y / scale, bvp.OrthogonalCamera.CameraViewPoint.Z / scale);
+        nvp.AlignDirection(new Navis.Vector3D(bvp.OrthogonalCamera.CameraDirection.X, bvp.OrthogonalCamera.CameraDirection.Y, bvp.OrthogonalCamera.CameraDirection.Z));
+        nvp.AlignUp(new Navis.Vector3D(bvp.OrthogonalCamera.CameraUpVector.X, bvp.OrthogonalCamera.CameraUpVector.Y, bvp.OrthogonalCamera.CameraUpVector.Z));
         nvp.Projection = Navis.ViewpointProjection.Orthographic;
-        nvp.HeightField = bvp.ViewToWorldScale / scale;
+        nvp.HeightField = bvp.OrthogonalCamera.ViewToWorldScale / scale;
         return true;
       } else {
         return false;
@@ -54,25 +54,25 @@ namespace BCFplugin {
       foreach(BCFclass.BCFfile file in files) {
         Navis.FolderItem fitm = new Navis.FolderItem();
         fitm.DisplayName = file.Name;
-        foreach(BCFclass.Topic topic in file.TopicsList) {
+        foreach(BCFmarkup.Markup markup in file.MarkupsList) {
           Navis.Viewpoint nvp = new Navis.Viewpoint();
-          if(topic.Viewpoints.Count > 0) {
-            BCFclass.Viewpoint bvp = topic.Viewpoints[0];
-            CopyBCFcamera(bvp, nvp);
+          if(markup.Viewpoints.Count > 0) {
+            BCFmarkup.ViewPoint bvp = markup.Viewpoints[0];
+            CopyBCFcamera(bvp.Bcfv, nvp);
           }
           Navis.SavedViewpoint svp = new Navis.SavedViewpoint(nvp);
-          svp.DisplayName = topic.Title;
+          svp.DisplayName = markup.Topic.Title;
           body =
-            "Topic: " + topic.Title + "\r\n" +
-            "Description: " + topic.Description + "\r\n" +
-            "Type: " + topic.TopicType + "\r\n" +
-            "Status: " + topic.TopicStatus + "\r\n" +
-            "Author: " + topic.CreationAuthor + "\r\n" +
-            "Created: " + formatDate(topic.CreationDate);
-          svp.Comments.Add(new Navis.Comment(body, Navis.CommentStatus.New, topic.CreationAuthor));
-          foreach(BCFclass.Comment comment in topic.Comments) {
+            "Topic: " + markup.Topic.Title + "\r\n" +
+            "Description: " + markup.Topic.Description + "\r\n" +
+            "Type: " + markup.Topic.TopicType + "\r\n" +
+            "Status: " + markup.Topic.TopicStatus + "\r\n" +
+            "Author: " + markup.Topic.CreationAuthor + "\r\n" +
+            "Created: " + formatDate(markup.Topic.CreationDate);
+          svp.Comments.Add(new Navis.Comment(body, Navis.CommentStatus.New, markup.Topic.CreationAuthor));
+          foreach(BCFmarkup.Comment comment in markup.Comment) {
             body =
-              "Comment: " + comment.Text + "\r\n" +
+              "Comment: " + comment.CommentProperty + "\r\n" +
               "Author: " + comment.Author + "\r\n" +
               "Created: " + formatDate(comment.Date);
             svp.Comments.Add(new Navis.Comment(body, Navis.CommentStatus.New, comment.Author));
@@ -85,12 +85,11 @@ namespace BCFplugin {
 
     /// <summary> Format an ISO date in readable string </summary>
     /// <param name="isodate">Date in ISO format. Ex : 2014-10-16T14:35:29+00:00</param>
-    private string formatDate(string isodate) {
+    private string formatDate(DateTime isodate) {
       string res;
       try {
-        DateTime dat = DateTime.Parse(isodate);
-        res = dat.ToString();
-      } catch { res = isodate; }
+        res = isodate.ToString();
+      } catch { res = "-"; }
       return res;
     }
 
@@ -117,7 +116,7 @@ namespace BCFplugin {
     public BCFpanelContent BCFcontent = null;
 
     /// <Summary> Move the camera </Summary>
-    public void MoveCamera(BCFclass.Viewpoint viewpoint) {
+    public void MoveCamera(BCFvisinfo.VisualizationInfo viewpoint) {
       // Remark : BCF units are METER and DEGREES
       double scale = BCFscale();
       // Viewpoint-Camera-Position
@@ -128,10 +127,10 @@ namespace BCFplugin {
           // Search the components
           Navis.Application.ActiveDocument.CurrentSelection.Clear();
           Navis.ModelItemCollection res = new Navis.ModelItemCollection();
-          foreach(string guid in viewpoint.Components) {
+          foreach(BCFvisinfo.Component cmp in viewpoint.Components.Selection) {
             Navis.Search s = new Navis.Search();
             s.Selection.SelectAll();
-            s.SearchConditions.Add(Navis.SearchCondition.HasPropertyByDisplayName("IFC", "GLOBALID").EqualValue(Navis.VariantData.FromDisplayString(guid)));
+            s.SearchConditions.Add(Navis.SearchCondition.HasPropertyByDisplayName("IFC", "GLOBALID").EqualValue(Navis.VariantData.FromDisplayString(cmp.IfcGuid)));
             res.AddRange(s.FindAll(Navis.Application.ActiveDocument, false));
           }
           Navis.Application.ActiveDocument.CurrentSelection.CopyFrom(res);

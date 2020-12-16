@@ -43,6 +43,8 @@
     </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
 
     <None Include="*\*.name"><CopyToOutputDirectory>Always</CopyToOutputDirectory></None>
     <None Include="*\*.xaml"><SubType>Designer</SubType><CopyToOutputDirectory>Always</CopyToOutputDirectory></None>

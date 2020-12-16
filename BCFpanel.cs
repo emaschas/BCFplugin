@@ -9,7 +9,7 @@ using BCFclass;
 namespace BCFpanel {
 
   /// <summary> 
-  /// BCFTreeNode if a class derivated from TreeNode with additional properties : <br/>
+  /// BCFTreeNode is a class derivated from TreeNode with the following additional properties : <br/>
   ///   - NodeFile    : BCFfile reference if the TReeNodes refers to this type of element <br/>
   ///   - NodeTopic   : Topic reference if the TReeNodes refers to this type of element <br/>
   ///   - NodeComment : Comment reference if the TReeNodes refers to this type of element <br/>
@@ -19,9 +19,9 @@ namespace BCFpanel {
     /// <summary>Added property : BCFfile NodeFile</summary>
     public BCFfile NodeFile;
     /// <summary>Added property : Topic NodeTopic</summary>
-    public Topic NodeTopic;
+    public BCFmarkup.Markup NodeTopic;
     /// <summary>Added property : Comment NodeComment</summary>
-    public Comment NodeComment;
+    public BCFmarkup.Comment NodeComment;
   }
 
   /// <Summary> Main class of the BCFpanel </Summary>
@@ -53,9 +53,9 @@ namespace BCFpanel {
     /// <summary> Add a Topic in the tree </summary>
     /// <param name="parent">File owning this topic</param>
     /// <param name="topic">Topic to be added in tree</param>
-    private BCFTreeNode AddTopic(BCFTreeNode parent, Topic topic) {
+    private BCFTreeNode AddTopic(BCFTreeNode parent, BCFmarkup.Markup topic) {
       BCFTreeNode tn = new BCFTreeNode();
-      tn.Text = topic.Title;
+      tn.Text = topic.Topic.Title;
       tn.NodeFile = null;
       tn.NodeTopic = topic;
       tn.NodeComment = null;
@@ -66,9 +66,9 @@ namespace BCFpanel {
     /// <Summary> Add a Comment in the tree node of the Topic </Summary>
     /// <param name="parent">Topic owning this comment</param>
     /// <param name="comment">Comment to be added in tree node of a Topic</param>
-    private BCFTreeNode AddComment(BCFTreeNode parent, Comment comment) {
+    private BCFTreeNode AddComment(BCFTreeNode parent, BCFmarkup.Comment comment) {
       BCFTreeNode tn = new BCFTreeNode();
-      tn.Text = comment.Text;
+      tn.Text = comment.CommentProperty;
       tn.NodeFile = null;
       tn.NodeTopic = null;
       tn.NodeComment = comment;
@@ -94,10 +94,10 @@ namespace BCFpanel {
         if(tx.NodeFile != null && ty.NodeFile != null) {
           result = tx.NodeFile.Index - ty.NodeFile.Index;
         } else if(tx.NodeTopic != null && ty.NodeTopic != null) {
-          result = tx.NodeTopic.Index - ty.NodeTopic.Index;
+          result = tx.NodeTopic.Topic.Index - ty.NodeTopic.Topic.Index;
         } else if(tx.NodeComment != null && ty.NodeComment != null) {
-          DateTime dx = DateTime.Parse(tx.NodeComment.ModifiedDate);
-          DateTime dy = DateTime.Parse(ty.NodeComment.ModifiedDate);
+          DateTime dx = tx.NodeComment.ModifiedDate;
+          DateTime dy = ty.NodeComment.ModifiedDate;
           result = DateTime.Compare(dx, dy);
         } else // should not happen !
           result = string.Compare(tx.Text, ty.Text);
@@ -106,7 +106,7 @@ namespace BCFpanel {
     }
 
     /// <summary> Delegate for the method provided by the user to move the camera </summary>
-    public delegate void CameraMover(BCFclass.Viewpoint viewpoint);
+    public delegate void CameraMover(BCFvisinfo.VisualizationInfo viewpoint);
 
     /// <summary> The method provided by the user to move the camera (can be null if not used) </summary>
     public CameraMover MoveCamera;
@@ -200,7 +200,7 @@ namespace BCFpanel {
       list.Clear();
       list.Columns.Add("BCF FILE", -1, HorizontalAlignment.Left);
       list.Columns.Add("", -1, HorizontalAlignment.Left);
-      AddProperty("BCF Version", file.Version);
+      AddProperty("BCF Version", file.Version.VersionId);
       AddProperty("Name", file.Name);
       AddProperty("Full Name", file.FullName);
       pict.Image = null;
@@ -209,25 +209,38 @@ namespace BCFpanel {
     }
 
     /// <summary> Fills the details of the selected Topic in the list view and the image </summary>
-    /// <param name="topic">Selected Topic</param>
-    private void ShowTopicDetails(Topic topic) {
+    /// <param name="markup">Selected Topic</param>
+    private void ShowTopicDetails(BCFmarkup.Markup markup) {
       list.Clear();
       list.Columns.Add("TOPIC", -1, HorizontalAlignment.Left);
       list.Columns.Add("", -1, HorizontalAlignment.Left);
-      AddProperty("Title", topic.Title);
-      AddProperty("Description", topic.Description);
-      AddProperty("Topic Type", topic.TopicType);
-      AddProperty("Topic Status", topic.TopicStatus);
-      AddProperty("Topic Index", topic.Index.ToString());
-      AddProperty("Creation Date", formatDate(topic.CreationDate));
-      AddProperty("Creation Author", topic.CreationAuthor);
-      if(topic.ModifiedAuthor != topic.CreationAuthor || topic.ModifiedDate != topic.ModifiedDate) {
-        AddProperty("Modified Date", formatDate(topic.ModifiedDate));
-        AddProperty("Modified Author", topic.ModifiedAuthor);
+      AddProperty("Title", markup.Topic.Title);
+      AddProperty("Description", markup.Topic.Description);
+      AddProperty("Topic Type", markup.Topic.TopicType);
+      AddProperty("Topic Status", markup.Topic.TopicStatus);
+      AddProperty("Topic Index", markup.Topic.Index.ToString());
+      String tags = "";
+      foreach(string label in markup.Topic.Labels) {
+        tags += label + " ";
       }
+      tags = tags.Trim();
+      AddProperty("Topic Labels", tags);
+      AddProperty("Creation Date", formatDate(markup.Topic.CreationDate));
+      AddProperty("Creation Author", markup.Topic.CreationAuthor);
+      if(markup.Topic.ModifiedAuthor != null && markup.Topic.ModifiedDate != null) {
+        if(markup.Topic.ModifiedAuthor != markup.Topic.CreationAuthor || markup.Topic.ModifiedDate != markup.Topic.ModifiedDate) {
+          AddProperty("Modified Date", formatDate(markup.Topic.ModifiedDate));
+          AddProperty("Modified Author", markup.Topic.ModifiedAuthor);
+        }
+      }
+      AddProperty("Due Date", (markup.Topic.DueDate.Equals(DateTime.MinValue) ? "Unset" : formatDate(markup.Topic.DueDate)));
+      AddProperty("Assigned to", markup.Topic.AssignedTo);
+      AddProperty("Stage", markup.Topic.Stage);
+      int vc = markup.Viewpoints.Count;
+      AddProperty("Viewpoints", vc > 0 ? vc.ToString() + " viewpoint" + (vc > 1 ? "s" : "") : "None");
       // Viewpoint
-      if(topic.Viewpoints.Count > 0) {
-        Viewpoint vp = topic.Viewpoints[0];
+      if(vc > 0) {
+        BCFmarkup.ViewPoint vp = markup.Viewpoints[0];
         // Viewpoint-Image
         if(vp.Image != null) {
           pict.Image = vp.Image;
@@ -246,21 +259,24 @@ namespace BCFpanel {
     /// <summary> Fills the details of the selected Comment in the list view and the image </summary>
     /// <param name="comment">Selected Comment</param>
     /// <param name="topic">Topic parent of the Comment</param>
-    private void ShowCommentDetails(Topic topic, Comment comment) {
+    private void ShowCommentDetails(BCFmarkup.Markup topic, BCFmarkup.Comment comment) {
       list.Clear();
       list.Columns.Add("COMMENT", -1, HorizontalAlignment.Left);
       list.Columns.Add("", -1, HorizontalAlignment.Left);
-      AddProperty("Comment", comment.Text);
+      AddProperty("Comment", comment.CommentProperty);
       AddProperty("Creation Date", formatDate(comment.Date));
       AddProperty("Creation Author", comment.Author);
-      if(comment.ModifiedAuthor != comment.Author || comment.ModifiedDate != comment.Date) {
-        AddProperty("Modified Date", formatDate(comment.ModifiedDate));
-        AddProperty("Modified Author", comment.ModifiedAuthor);
+      if(comment.ModifiedAuthor != null && comment.ModifiedDate != null) {
+        if(comment.ModifiedAuthor != comment.Author || comment.ModifiedDate != comment.Date) {
+          AddProperty("Modified Date", formatDate(comment.ModifiedDate));
+          AddProperty("Modified Author", comment.ModifiedAuthor);
+        }
       }
+      AddProperty("Viewpoint", (comment.Viewpoint != null ? "Yes" : "No"));
       // Viewpoint
-      Viewpoint vp = null;
+      BCFmarkup.ViewPoint vp = null;
       if(comment.Viewpoint != null) {
-        vp = comment.Viewpoint;
+        vp = comment.MarkupViewPoint;
       } else if(topic.Viewpoints.Count > 0) {
         vp = topic.Viewpoints[0];
       }
@@ -336,10 +352,10 @@ namespace BCFpanel {
       tree.Nodes.Clear();
       foreach(BCFfile file in bcfs.BCFfiles) {
         BCFTreeNode tnf = AddFile(file);
-        foreach(Topic topic in file.TopicsList) {
-          BCFTreeNode tnt = AddTopic(tnf, topic);
-          foreach(Comment comment in topic.Comments) {
-            AddComment(tnt, comment);
+        foreach(BCFmarkup.Markup markup in file.MarkupsList) {
+          BCFTreeNode tnm = AddTopic(tnf, markup);
+          foreach(BCFmarkup.Comment comment in markup.Comment) {
+            AddComment(tnm, comment);
           }
         }
       }
@@ -354,32 +370,26 @@ namespace BCFpanel {
     }
 
     private void pict_DoubleClick(Object sender, EventArgs args) {
-      Viewpoint v = null;
+      BCFmarkup.ViewPoint v = null;
       BCFTreeNode tn = (BCFTreeNode)tree.SelectedNode;
       if(tn == null) return;
       if(tn.NodeTopic != null) {
-        Topic topic = tn.NodeTopic;
+        BCFmarkup.Markup topic = tn.NodeTopic;
         if(topic.Viewpoints.Count > 0) v = topic.Viewpoints[0];
       } else if(tn.NodeComment != null) {
-        Comment comment = tn.NodeComment;
+        BCFmarkup.Comment comment = tn.NodeComment;
         if(comment.Viewpoint != null) {
-          v = comment.Viewpoint;
+          v = comment.MarkupViewPoint;
         } else {
           BCFTreeNode tp = (BCFTreeNode)tree.SelectedNode.Parent;
-          Topic topic = tp.NodeTopic;
+          BCFmarkup.Markup topic = tp.NodeTopic;
           if(topic.Viewpoints.Count > 0) v = topic.Viewpoints[0];
         }
       }
       if(v != null) {
-        if(v.CamType != CameraType.NoCamera) {
-          if(MoveCamera != null)
-            MoveCamera(v);
-          else
-            MessageBox.Show(
-              $"Pos. :\t{v.CamX:F3},\t{v.CamY:F3},\t{v.CamZ:F3}\n" +
-              $"Dir. :\t{v.DirX:F3},\t{v.DirY:F3},\t{v.DirZ:F3}\n" +
-              $"Up :\t{v.UpX:F3},\t{v.UpY:F3},\t{v.UpZ:F3}\n" +
-              $"Field :\t{v.Field:F1}", "Camera:");
+        if(v.Bcfv.CameraDefined()) {
+          if(MoveCamera != null) MoveCamera(v.Bcfv);
+          else MessageBox.Show(v.Bcfv.CameraText(), "Camera:");
         }
       }
     }
@@ -425,12 +435,11 @@ namespace BCFpanel {
 
     /// <summary> Format an ISO date in readable string </summary>
     /// <param name="isodate">Date in ISO format. Ex : 2014-10-16T14:35:29+00:00</param>
-    private string formatDate(string isodate) {
+    private string formatDate(DateTime isodate) {
       string res;
       try {
-        DateTime dat = DateTime.Parse(isodate);
-        res = dat.ToString("dd-MM-yyyy HH:mm:ss");
-      } catch { res = isodate; }
+        res = isodate.ToString("dd-MM-yyyy HH:mm:ss");
+      } catch { res = "-"; }
       return res;
     }
 
