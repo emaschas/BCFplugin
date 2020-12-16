@@ -4,6 +4,8 @@ This developpement is a NAVISWORKS plugin that reads and displays the Topics and
 
 In addition, the BCF topics can be exported as Navisworks viewpoints to make them accessible with Navisworks Freedom.
 
+Read more in the [Wiki pages](https://github.com/emaschas/BCFplugin/wiki).
+
 ## Compatibility
 
 This plugin can be used with 
@@ -16,7 +18,7 @@ This plugin can be used with
 
 ![Screenshot](https://github.com/emaschas/BCFplugin/blob/main/Screenshot.png)
 
-## Install
+## Installation
 
 1. Download the .msi file from [Releases](https://github.com/emaschas/BCFplugin/releases).
 2. Double click on it
