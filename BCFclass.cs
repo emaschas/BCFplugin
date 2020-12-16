@@ -20,7 +20,7 @@
 /// <https://github.com/buildingSMART/BCF-XML/tree/master/Documentation>
 ///
 /// ## Application Example : Navisworks Plugin
-/// ![Screenshot](Screenshot.png)
+/// ![Screenshot Image](Screenshot.png)
 /// <hr>
 /// By Emmanuel Maschas - 16-12-2020
 
