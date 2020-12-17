@@ -9,5 +9,6 @@ var searchData=
   ['bcfv_9',['Bcfv',['../class_b_c_fmarkup_1_1_view_point.html#a387660dc1a567a44ba81fb4331ff8c90',1,'BCFmarkup::ViewPoint']]],
   ['bcfversion_10',['BCFversion',['../namespace_b_c_fversion.html',1,'']]],
   ['bcfvisinfo_11',['BCFvisinfo',['../namespace_b_c_fvisinfo.html',1,'']]],
-  ['bimsnippet_12',['BimSnippet',['../class_b_c_fmarkup_1_1_bim_snippet.html',1,'BCFmarkup.BimSnippet'],['../class_b_c_fmarkup_1_1_topic.html#a45f1f13f275e322e519631e8dd903921',1,'BCFmarkup.Topic.BimSnippet()']]]
+  ['bimsnippet_12',['BimSnippet',['../class_b_c_fmarkup_1_1_bim_snippet.html',1,'BCFmarkup.BimSnippet'],['../class_b_c_fmarkup_1_1_topic.html#a45f1f13f275e322e519631e8dd903921',1,'BCFmarkup.Topic.BimSnippet()']]],
+  ['bitmap_13',['Bitmap',['../class_b_c_fvisinfo_1_1_visualization_info.html#a4688b255b75498acf26528731f03dccd',1,'BCFvisinfo::VisualizationInfo']]]
 ];
