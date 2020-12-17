@@ -158,19 +158,20 @@ namespace BCFvisinfo {
   /// <summary>Visualization Info (.bcfv) definition</summary>
   /// The Visualization Info includes the following properties :
   /// <list type="table">
-  /// <item><term><see cref="CamType"/></term><description> Camera type (NoCamera, Perspective or Orthogonal)</description></item>
-  /// <item><term><see cref="CamX"/>, <see cref="CamY"/>, <see cref="CamZ"/></term><description> Camera location (in meters)</description></item>
-  /// <item><term><see cref="DirX"/>, <see cref="DirY"/>, <see cref="DirZ"/></term><description> Camera direction</description></item>
-  /// <item><term><see cref="UpX"/>, <see cref="UpY"/>, <see cref="UpZ"/></term><description> Camera Up vector</description></item>
-  /// <item><term><see cref="Field"/></term><description> Field of view in degrees</description></item>
-  /// <item><term><see cref="ViewToWorldScale"/></term><description> View to World Scale</description></item>
-  /// <item><term><see cref="Components"/></term><description> List of visible components</description></item>
+  /// <item><term><see cref="Components"/></term><description> The components node contains a set of Component references<br/>
+  ///   The components node has also the DefaultVisibility attribute which indicates true or false for all components of the viewpoint</description></item>
+  /// <item><term><see cref="OrthogonalCamera"/></term><description> This element describes a viewpoint using orthogonal camera</description></item>
+  /// <item><term><see cref="PerspectiveCamera"/></term><description> This element describes a viewpoint using perspective camera</description></item>
+  /// <item><term><see cref="Lines"/></term><description> Lines can be used to add markup in 3D</description></item>
+  /// <item><term><see cref="ClippingPlanes"/></term><description> ClippingPlanes can be used to define a subsection of a building model that is related to the topic</description></item>
+  /// <item><term><see cref="Bitmap"/></term><description> A list of bitmaps can be used to add more information, for example, text in the visualization</description></item>
+  /// <item><term><see cref="Guid"/></term><description> Guid of the viewpoint</description></item>
   /// </list>
+  ///   The numeric values in this file are all given in fixed units (meters for length and degrees for angle)<br/>
+  ///   Unit conversion is not required, since the values are not relevant to the user<br/>
   public partial class VisualizationInfo {
     /// \fn Components Components[get, set]
     ///   The components node contains a set of Component references<br/>
-    ///   The numeric values in this file are all given in fixed units (meters for length and degrees for angle)<br/>
-    ///   Unit conversion is not required, since the values are not relevant to the user<br/>
     ///   The components node has also the DefaultVisibility attribute which indicates true or false for all components of the viewpoint
     /// \fn OrthogonalCamera OrthogonalCamera[get, set]
     ///   This element describes a viewpoint using orthogonal camera
@@ -182,11 +183,75 @@ namespace BCFvisinfo {
     ///   Lines that have the same start and end points are to be considered points and may be displayed accordingly
     /// \fn System.Collections.ObjectModel.Collection< ClippingPlane > ClippingPlanes[get]
     ///   ClippingPlanes can be used to define a subsection of a building model that is related to the topic<br/>
-    ///   Each clipping plane is defined by Location and Direction
+    ///   Each clipping plane is defined by a location Point and a normal Direction
     /// \fn System.Collections.ObjectModel.Collection< VisualizationInfoBitmap > Bitmap[get]
     ///   A list of bitmaps can be used to add more information, for example, text in the visualization
     /// \fn string Guid[get, set]
     ///   Guid of the viewpoint
+  }
+
+  /// <summary> The PerspectiveCamera element describes a viewpoint using perspective camera </summary>
+  /// It has the following elements:
+  /// <list type="table">
+  /// <item><term><see cref="CameraViewPoint"/></term><description>Camera location</description></item>
+  /// <item><term><see cref="CameraDirection"/></term><description>Camera direction</description></item>
+  /// <item><term><see cref="CameraUpVector"/></term><description>Camera up vector</description></item>
+  /// <item><term><see cref="FieldOfView"/></term><description>Camera’s field of view angle in degrees</description></item>
+  /// </list>
+  /// The FieldOfView is currently restricted to a value between 45 and 60 degrees<br/>
+  /// There may be viewpoints that are not within this range, therefore imports should be expecting any values between 0 and 360 degrees<br/>
+  /// The limitation will be dropped in the next schema release
+  public partial class PerspectiveCamera {
+    /// \fn Point CameraViewPoint[get, set]
+    ///   Camera location Point (in meters)
+    /// \fn Direction CameraDirection[get, set]
+    ///   Camera view Direction
+    /// \fn Direction CameraUpVector[get, set]
+    ///   Camera up vector Direction
+    /// \fn double FieldOfView[get, set]
+    ///   Camera’s field of view angle (in degrees)<br/>
+    ///   The FieldOfView is currently restricted to a value between 45 and 60 degrees<br/>
+    ///   There may be viewpoints that are not within this range, therefore imports should be expecting any values between 0 and 360 degrees<br/>
+    ///   The limitation will be dropped in the next schema release
+  }
+
+  /// <summary> The OrthogonalCamera element describes a viewpoint using orthogonal camera </summary>
+  /// It has the following elements:
+  /// <list type="table">
+  /// <item><term><see cref="CameraViewPoint"/></term><description>Camera location</description></item>
+  /// <item><term><see cref="CameraDirection"/></term><description>Camera direction</description></item>
+  /// <item><term><see cref="CameraUpVector"/></term><description>Camera up vector</description></item>
+  /// <item><term><see cref="ViewToWorldScale"/></term><description>Scaling from view to world</description></item>
+  /// </list>
+  public partial class OrthogonalCamera {
+    /// \fn Point CameraViewPoint[get, set]
+    ///   Camera location Point (in meters)
+    /// \fn Direction CameraDirection[get, set]
+    ///   Camera view Direction
+    /// \fn Direction CameraUpVector[get, set]
+    ///   Camera up vector Direction
+    /// \fn double ViewToWorldScale[get, set]
+    ///   Scaling from view to world
+  }
+
+  /// <summary>3D direction unitary vector<summary>
+  public partial class Direction {
+    /// \fn double X[get, set]
+    ///   X axis component of the 3D direction vector
+    /// \fn double Y[get, set]
+    ///   Y axis component of the 3D direction vector
+    /// \fn double Z[get, set]
+    ///   Z axis component of the 3D direction vector
+  }
+
+  /// <summary>3D point definition<summary>
+  public partial class Point {
+    /// \fn double X[get, set]
+    ///   X axis component of the 3D point
+    /// \fn double Y[get, set]
+    ///   Y axis component of the 3D point
+    /// \fn double Z[get, set]
+    ///   Z axis component of the 3D point
   }
 
 }
