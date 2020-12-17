@@ -8,7 +8,8 @@
 // This file adds code Documentation to the extracted classes
 //
 
-/// <summary> BCF file Markup objects </summary>
+/// <summary> BCF file Markup elements </summary>
+/// Definition of elements appearing in the **markup.bcf** file
 namespace BCFmarkup {
 
   /// <summary> Markup of a BCF file </summary>
@@ -153,6 +154,7 @@ namespace BCFmarkup {
 }
 
 /// <summary> BCF file Visualisation Info objects </summary>
+/// Definition of elements appearing in the <b>*.bcfv</b> files
 namespace BCFvisinfo {
 
   /// <summary>Visualization Info (.bcfv) definition</summary>
@@ -254,4 +256,18 @@ namespace BCFvisinfo {
     ///   Z axis component of the 3D point
   }
 
+}
+
+
+/// <summary> BCF file Version elements </summary>
+/// Definition of elements appearing in the **bcf.version** file
+namespace BCFversion {
+
+  /// <summary> Version of the BCF schema used<summary>
+  public partial class Version {
+    /// \fn string DetailedVersion[get, set]
+    ///   Detailed Version of the BCF schema used
+    /// \fn string VersionId[get, set]
+    ///   Version ID of the BCF schema used
+  }
 }

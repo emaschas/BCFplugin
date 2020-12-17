@@ -41,7 +41,6 @@ using System.Xml.Serialization;
 
 // Additions to the Classes extracted with xscgen
 
-/// <summary> BCF file Markup objects </summary>
 namespace BCFmarkup {
 
   public partial class ViewPoint {
