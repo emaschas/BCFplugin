@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['viewpoint_175',['Viewpoint',['../class_b_c_fmarkup_1_1_view_point.html#a86078b8e129e6bae279c9e79966ae117',1,'BCFmarkup.ViewPoint.Viewpoint()'],['../class_b_c_fmarkup_1_1_comment.html#a9b1daee4acf50832cae1f40cc065cd80',1,'BCFmarkup.Comment.Viewpoint()']]],
-  ['viewpoints_176',['Viewpoints',['../class_b_c_fmarkup_1_1_markup.html#a1435451a7b59b8574566e08e6ec12114',1,'BCFmarkup::Markup']]]
+  ['title_183',['Title',['../class_b_c_fmarkup_1_1_topic.html#a0b89a759c55d62b3f91c5c323b5eba48',1,'BCFmarkup::Topic']]],
+  ['topic_184',['Topic',['../class_b_c_fmarkup_1_1_markup.html#ac721c50216236947f872222d9c4ecaa1',1,'BCFmarkup::Markup']]],
+  ['topicstatus_185',['TopicStatus',['../class_b_c_fmarkup_1_1_topic.html#a3b8b73df1e7808e1f7ed59c27f51a030',1,'BCFmarkup::Topic']]],
+  ['topictype_186',['TopicType',['../class_b_c_fmarkup_1_1_topic.html#af3d9f54407aa0ae6c701671d322d26db',1,'BCFmarkup::Topic']]]
 ];

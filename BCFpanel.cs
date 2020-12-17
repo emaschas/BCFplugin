@@ -400,10 +400,20 @@ namespace BCFpanel {
     private void ResizeImage() {
       if(ratio > 0) {
         Vsplit.Panel1Collapsed = false;
-        int maxHeight = Vsplit.Height - Vsplit.Panel2MinSize - Vsplit.SplitterWidth;
-        int newHeight = (int)((double)Vsplit.Width * ratio);
-        if(maxHeight > 0) {
-          Vsplit.SplitterDistance = (newHeight < maxHeight ? newHeight : maxHeight);
+        if(Vsplit.Orientation == Orientation.Horizontal) {
+          int maxHeight = Vsplit.Height - Vsplit.Panel2MinSize - Vsplit.SplitterWidth;
+          int halfHeight = (Vsplit.Height - Vsplit.SplitterWidth) / 2;
+          if(maxHeight > halfHeight) maxHeight = halfHeight;
+          int newHeight = (int)((double)Vsplit.Width * ratio);
+          if(newHeight > maxHeight) newHeight = maxHeight;
+          if(maxHeight > 0) Vsplit.SplitterDistance = newHeight;
+        } else {
+          int maxWidth = Vsplit.Width - Vsplit.Panel2MinSize - Vsplit.SplitterWidth;
+          int halfWidth = (Vsplit.Width - Vsplit.SplitterWidth) / 2;
+          if(maxWidth > halfWidth) maxWidth = halfWidth;
+          int newWidth = (int)((double)Vsplit.Height / ratio);
+          if(newWidth > maxWidth) newWidth = maxWidth;
+          if(newWidth > 0) Vsplit.SplitterDistance = newWidth;
         }
       } else { // Ratio==0
         Vsplit.Panel1Collapsed = true;
@@ -414,7 +424,8 @@ namespace BCFpanel {
     /// <param name="sender">Not used</param>
     /// <param name="args">Not used</param>
     private void BCFpanel_Resize(Object sender, EventArgs args) {
-      Hsplit.Orientation = (((Panel)sender).Height > ((Panel)sender).Width ? Orientation.Horizontal : Orientation.Vertical);
+      Hsplit.Orientation = (Hsplit.Height > Hsplit.Width ? Orientation.Horizontal : Orientation.Vertical);
+      Vsplit.Orientation = (Vsplit.Height > Vsplit.Width ? Orientation.Horizontal : Orientation.Vertical);
       ResizeImage();
     }
 

@@ -115,20 +115,24 @@ Properties</h2></td></tr>
 <div class="textblock"><p>Visualization Info (.bcfv) definition </p>
 <p>The Visualization Info includes the following properties : </p><table class="doxtable">
 <tr>
-<td>CamType</td><td>Camera type (NoCamera, Perspective or Orthogonal) </td></tr>
+<td><a class="el" href="class_b_c_fvisinfo_1_1_components.html">Components</a></td><td>The components node contains a set of <a class="el" href="class_b_c_fvisinfo_1_1_component.html">Component</a> references<br  />
+ The components node has also the DefaultVisibility attribute which indicates true or false for all components of the viewpoint </td></tr>
 <tr>
-<td>CamX, CamY, CamZ</td><td>Camera location (in meters) </td></tr>
+<td><a class="el" href="class_b_c_fvisinfo_1_1_orthogonal_camera.html" title="The OrthogonalCamera element describes a viewpoint using orthogonal camera">OrthogonalCamera</a></td><td>This element describes a viewpoint using orthogonal camera </td></tr>
 <tr>
-<td>DirX, DirY, DirZ</td><td>Camera direction </td></tr>
+<td><a class="el" href="class_b_c_fvisinfo_1_1_perspective_camera.html" title="The PerspectiveCamera element describes a viewpoint using perspective camera">PerspectiveCamera</a></td><td>This element describes a viewpoint using perspective camera </td></tr>
 <tr>
-<td>UpX, UpY, UpZ</td><td>Camera Up vector </td></tr>
+<td><a class="el" href="class_b_c_fvisinfo_1_1_visualization_info.html#ac32c9499db48f1933d97746382918cb5">Lines</a></td><td>Lines can be used to add markup in 3D </td></tr>
 <tr>
-<td>Field</td><td>Field of view in degrees </td></tr>
+<td><a class="el" href="class_b_c_fvisinfo_1_1_visualization_info.html#a4c8a6b153c8c13c3a7a741cdd7d17043">ClippingPlanes</a></td><td>ClippingPlanes can be used to define a subsection of a building model that is related to the topic </td></tr>
 <tr>
-<td>ViewToWorldScale</td><td>View to World Scale </td></tr>
+<td><a class="el" href="class_b_c_fvisinfo_1_1_visualization_info.html#a4688b255b75498acf26528731f03dccd">Bitmap</a></td><td>A list of bitmaps can be used to add more information, for example, text in the visualization </td></tr>
 <tr>
-<td><a class="el" href="class_b_c_fvisinfo_1_1_components.html">Components</a></td><td>List of visible components </td></tr>
+<td><a class="el" href="class_b_c_fvisinfo_1_1_visualization_info.html#ada70083c4825e3c18245862a9e12d590">Guid</a></td><td>Guid of the viewpoint </td></tr>
 </table>
+<p>The numeric values in this file are all given in fixed units (meters for length and degrees for angle)<br  />
+ Unit conversion is not required, since the values are not relevant to the user<br  />
+ </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="af96038e1da683cc786c7c5d1235af517"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af96038e1da683cc786c7c5d1235af517">&#9670;&nbsp;</a></span>CameraDefined()</h2>
@@ -259,8 +263,6 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>The components node contains a set of <a class="el" href="class_b_c_fvisinfo_1_1_component.html">Component</a> references<br  />
- The numeric values in this file are all given in fixed units (meters for length and degrees for angle)<br  />
- Unit conversion is not required, since the values are not relevant to the user<br  />
  The components node has also the DefaultVisibility attribute which indicates true or false for all components of the viewpoint </p>
 
 </div>
@@ -332,7 +334,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Lines can be used to add markup in 3D<br  />
- Each line is defined by three dimensional Start <a class="el" href="class_b_c_fvisinfo_1_1_point.html">Point</a> and End <a class="el" href="class_b_c_fvisinfo_1_1_point.html">Point</a><br  />
+ Each line is defined by three dimensional Start <a class="el" href="class_b_c_fvisinfo_1_1_point.html" title="3D point definition">Point</a> and End <a class="el" href="class_b_c_fvisinfo_1_1_point.html" title="3D point definition">Point</a><br  />
  Lines that have the same start and end points are to be considered points and may be displayed accordingly </p>
 
 </div>
@@ -357,7 +359,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>ClippingPlanes can be used to define a subsection of a building model that is related to the topic<br  />
- Each clipping plane is defined by Location and <a class="el" href="class_b_c_fvisinfo_1_1_direction.html">Direction</a> </p>
+ Each clipping plane is defined by a location <a class="el" href="class_b_c_fvisinfo_1_1_point.html" title="3D point definition">Point</a> and a normal <a class="el" href="class_b_c_fvisinfo_1_1_direction.html" title="3D direction unitary vector">Direction</a> </p>
 
 </div>
 </div>
