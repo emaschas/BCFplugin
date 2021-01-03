@@ -21,6 +21,6 @@ This plugin can be used with
 ## Installation
 
 1. Download the .msi file from [Releases](https://github.com/emaschas/BCFplugin/releases).
-2. Double click on it
+2. Double click on it (admin rights are not required).
 3. Start Navisworks Manage or Navisworks Simulate and select the "BCF" tab.
 4. Click on "Show" (first button).
