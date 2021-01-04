@@ -10,5 +10,5 @@ var searchData=
   ['bcfversion_10',['BCFversion',['../namespace_b_c_fversion.html',1,'']]],
   ['bcfvisinfo_11',['BCFvisinfo',['../namespace_b_c_fvisinfo.html',1,'']]],
   ['bimsnippet_12',['BimSnippet',['../class_b_c_fmarkup_1_1_bim_snippet.html',1,'BCFmarkup.BimSnippet'],['../class_b_c_fmarkup_1_1_topic.html#a45f1f13f275e322e519631e8dd903921',1,'BCFmarkup.Topic.BimSnippet()']]],
-  ['bitmap_13',['Bitmap',['../class_b_c_fvisinfo_1_1_visualization_info.html#a4688b255b75498acf26528731f03dccd',1,'BCFvisinfo::VisualizationInfo']]]
+  ['bitmap_13',['Bitmap',['../class_b_c_fvisinfo_1_1_visualization_info.html#a6cc556c2031839b925a8fe35afde2d1e',1,'BCFvisinfo::VisualizationInfo']]]
 ];

@@ -45,13 +45,16 @@ namespace BCFmarkup {
 
   public partial class ViewPoint {
     /// <summary>Content of the VisualisationInfo (.bcfv) file </summary>
+    /// _In addition to the class extracted from the BCF schema_
     public BCFvisinfo.VisualizationInfo Bcfv { get; set; }
     /// <summary>Content (Bitmap) of the snapshot file </summary>
+    /// _In addition to the class extracted from the BCF schema_
     public Bitmap Image { get; set; }
   }
 
   public partial class Comment {
     /// <summary>Content of the VisualisationInfo (.bcfv) file </summary>
+    /// _In addition to the class extracted from the BCF schema_
     public BCFmarkup.ViewPoint MarkupViewPoint { get; set; }
   }
 
@@ -61,18 +64,22 @@ namespace BCFvisinfo {
 
   public partial class VisualizationInfo {
     /// <summary>Returns if a Camera is defined (either Orthogonal or Perspective</summary>
+    /// _In addition to the class extracted from the BCF schema_
     public Boolean CameraDefined() {
       return (this.OrthogonalCamera != null || this.PerspectiveCamera != null);
     }
     /// <summary>Returns if an Orthogonal Camera is defined</summary>
+    /// _In addition to the class extracted from the BCF schema_
     public Boolean OrthogonalDefined() {
       return (this.OrthogonalCamera != null);
     }
     /// <summary>Returns if an Orthogonal Camera is defined</summary>
+    /// _In addition to the class extracted from the BCF schema_
     public Boolean PerspectiveDefined() {
       return (this.PerspectiveCamera != null);
     }
     /// <summary>Returns a text with Camera definition</summary>
+    /// _In addition to the class extracted from the BCF schema_
     public String CameraText() {
       String txt = "No Camera";
       if(this.OrthogonalDefined()) {
@@ -99,9 +106,11 @@ namespace BCFvisinfo {
 #endregion
 
 /// <summary> BCF file namespace</summary>
+/// _In addition to the BCF schema_
 namespace BCFclass {
 
   /// <summary> Content of a BCF file </summary>
+  /// _In addition to the classes extracted from the BCF schema_
   public class BCFfile {
 
     /// <summary> List of BCF markups in the BCFfile object </summary>
@@ -193,7 +202,7 @@ namespace BCFclass {
               if(NewViewpoint.Image == null) NewViewpoint.Snapshot = null; // Image not found !
               markup.Viewpoints.Add(NewViewpoint);
             }
-            foreach(BCFmarkup.Comment com in markup.Comment) {
+            foreach(BCFmarkup.Comment com in markup.Comments) {
               if(com.Viewpoint != null) {
                 foreach(BCFmarkup.ViewPoint vp in markup.Viewpoints) {
                   if(vp.Guid == com.Viewpoint.Guid) {

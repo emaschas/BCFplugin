@@ -354,7 +354,7 @@ namespace BCFpanel {
         BCFTreeNode tnf = AddFile(file);
         foreach(BCFmarkup.Markup markup in file.MarkupsList) {
           BCFTreeNode tnm = AddTopic(tnf, markup);
-          foreach(BCFmarkup.Comment comment in markup.Comment) {
+          foreach(BCFmarkup.Comment comment in markup.Comments) {
             AddComment(tnm, comment);
           }
         }

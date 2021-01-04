@@ -8,6 +8,8 @@
 // This file adds code Documentation to the extracted classes
 //
 
+using System.Collections.ObjectModel;
+
 /// <summary> BCF file Markup elements </summary>
 /// Definition of elements appearing in the **markup.bcf** file
 namespace BCFmarkup {
@@ -22,13 +24,13 @@ namespace BCFmarkup {
   /// <item><term><see cref="Viewpoints"/></term><description>List of <see cref="ViewPoint">Viewpoints</see> associated to the Topic</description></item>
   /// </list>
   public partial class Markup {
-    /// \fn System.Collections.ObjectModel.Collection< HeaderFile > Header[get]
+    /// \fn Collection< HeaderFile > Header[get]
     /// Headers of the Markup
-    /// \fn Topic 	Topic[get, set]
+    /// \fn Topic Topic[get, set]
     /// Topic of the Markup (only one)
-    /// \fn System.Collections.ObjectModel.Collection< Comment > Comment[get]
+    /// \fn Collection< Comment > Comment[get]
     /// Collection of Comments related to the Topic
-    /// \fn System.Collections.ObjectModel.Collection< ViewPoint > Viewpoints[get]
+    /// \fn Collection< ViewPoint > Viewpoints[get]
     /// Collection of Viewpoints referred to by the Topic or the Comments
   }
 
@@ -56,7 +58,7 @@ namespace BCFmarkup {
   /// <item><term><see cref="TopicStatus"/></term><description>Status of the Topic</description></item>
   /// </list>
   public partial class Topic {
-    /// \fn System.Collections.ObjectModel.Collection< string > ReferenceLink[get]
+    /// \fn Collection< string > ReferenceLink[get]
     /// List of references to the Topic, for example, a work request management system or an URI to a model
     /// \fn string Title[get, set]
     /// Title of the Topic
@@ -64,7 +66,7 @@ namespace BCFmarkup {
     /// Priority of the Topic
     /// \fn int Index[get, set]
     /// Index number to maintain the order of the Topics
-    /// \fn System.Collections.ObjectModel.Collection< string > Labels[get]
+    /// \fn Collection< string > Labels[get]
     /// Tags for grouping Topics
     /// \fn System.DateTime CreationDate[get, set]
     /// Date when the Topic was created
@@ -86,10 +88,10 @@ namespace BCFmarkup {
     /// \fn BimSnippet BimSnippet[get, set]
     /// BimSnippet is an additional file containing information related to one or multiple Topics<br/>
     /// For example, it can be an IFC file containing provisions for voids
-    /// \fn System.Collections.ObjectModel.Collection< TopicDocumentReference > DocumentReference[get]
+    /// \fn Collection< TopicDocumentReference > DocumentReference[get]
     /// DocumentReference provides a means to associate additional payloads or links with Topics<br/>
     /// The references may point to a file within the .bcfzip or to an external location
-    /// \fn System.Collections.ObjectModel.Collection< TopicRelatedTopic > RelatedTopic[get]
+    /// \fn Collection< TopicRelatedTopic > RelatedTopic[get]
     /// Relation between Topics
     /// \fn string Guid[get, set]
     /// Guid of the Topic
@@ -179,14 +181,14 @@ namespace BCFvisinfo {
     ///   This element describes a viewpoint using orthogonal camera
     /// \fn PerspectiveCamera PerspectiveCamera[get, set]
     ///   This element describes a viewpoint using perspective camera<br/>
-    /// \fn System.Collections.ObjectModel.Collection< Line > Lines[get]
+    /// \fn Collection< Line > Lines[get]
     ///   Lines can be used to add markup in 3D<br/>
     ///   Each line is defined by three dimensional Start Point and End Point<br/>
     ///   Lines that have the same start and end points are to be considered points and may be displayed accordingly
-    /// \fn System.Collections.ObjectModel.Collection< ClippingPlane > ClippingPlanes[get]
+    /// \fn Collection< ClippingPlane > ClippingPlanes[get]
     ///   ClippingPlanes can be used to define a subsection of a building model that is related to the topic<br/>
     ///   Each clipping plane is defined by a location Point and a normal Direction
-    /// \fn System.Collections.ObjectModel.Collection< VisualizationInfoBitmap > Bitmap[get]
+    /// \fn Collection< VisualizationInfoBitmap > Bitmap[get]
     ///   A list of bitmaps can be used to add more information, for example, text in the visualization
     /// \fn string Guid[get, set]
     ///   Guid of the viewpoint
