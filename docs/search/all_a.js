@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['name_58',['Name',['../class_b_c_fclass_1_1_b_c_ffile.html#a4dc1760bfe220bec695bc7c5b46d734a',1,'BCFclass::BCFfile']]],
-  ['newbcf_59',['NewBCF',['../class_b_c_fclass_1_1_b_c_ffile.html#a30249bf9f33f1b3446dbcdd6e25342b3',1,'BCFclass::BCFfile']]]
+  ['orthogonalcamera_39',['OrthogonalCamera',['../class_b_c_fvisinfo_1_1_orthogonal_camera.html',1,'BCFvisinfo']]],
+  ['orthogonaldefined_40',['OrthogonalDefined',['../class_b_c_fvisinfo_1_1_visualization_info.html#ad97848291ce503dc965eef5a1feed0ca',1,'BCFvisinfo::VisualizationInfo']]]
 ];

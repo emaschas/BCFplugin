@@ -32,6 +32,29 @@
         "clear": true
       },
       "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "doxygen",
+      "command": "Doxygene.bat",
+      "type": "shell",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": "$go"
+    },
+    {
+      "label": "msi",
+      "command": "make_msi.bat",
+      "type": "shell",
+      "options": { "cwd": "msi" },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": "$go"
     }
   ]
 }
