@@ -236,6 +236,8 @@ namespace BCFpanel {
       AddProperty("Due Date", (markup.Topic.DueDate.Equals(DateTime.MinValue) ? "Unset" : formatDate(markup.Topic.DueDate)));
       AddProperty("Assigned to", markup.Topic.AssignedTo);
       AddProperty("Stage", markup.Topic.Stage);
+      int cc = markup.Comment.Count;
+      AddProperty("Comments", cc > 0 ? cc.ToString() + " comment" + (cc > 1 ? "s" : "") : "None");
       int vc = markup.Viewpoints.Count;
       AddProperty("Viewpoints", vc > 0 ? vc.ToString() + " viewpoint" + (vc > 1 ? "s" : "") : "None");
       // Viewpoint
@@ -354,7 +356,7 @@ namespace BCFpanel {
         BCFTreeNode tnf = AddFile(file);
         foreach(BCFmarkup.Markup markup in file.MarkupsList) {
           BCFTreeNode tnm = AddTopic(tnf, markup);
-          foreach(BCFmarkup.Comment comment in markup.Comments) {
+          foreach(BCFmarkup.Comment comment in markup.Comment) {
             AddComment(tnm, comment);
           }
         }

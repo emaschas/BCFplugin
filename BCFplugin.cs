@@ -70,7 +70,7 @@ namespace BCFplugin {
             "Author: " + markup.Topic.CreationAuthor + "\r\n" +
             "Created: " + formatDate(markup.Topic.CreationDate);
           svp.Comments.Add(new Navis.Comment(body, Navis.CommentStatus.New, markup.Topic.CreationAuthor));
-          foreach(BCFmarkup.Comment comment in markup.Comments) {
+          foreach(BCFmarkup.Comment comment in markup.Comment) {
             body =
               "Comment: " + comment.CommentProperty + "\r\n" +
               "Author: " + comment.Author + "\r\n" +

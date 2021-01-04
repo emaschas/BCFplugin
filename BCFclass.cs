@@ -202,7 +202,7 @@ namespace BCFclass {
               if(NewViewpoint.Image == null) NewViewpoint.Snapshot = null; // Image not found !
               markup.Viewpoints.Add(NewViewpoint);
             }
-            foreach(BCFmarkup.Comment com in markup.Comments) {
+            foreach(BCFmarkup.Comment com in markup.Comment) {
               if(com.Viewpoint != null) {
                 foreach(BCFmarkup.ViewPoint vp in markup.Viewpoints) {
                   if(vp.Guid == com.Viewpoint.Guid) {
