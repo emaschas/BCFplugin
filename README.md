@@ -16,7 +16,7 @@ This plugin can be used with
 
 ## Screenshot
 
-![Screenshot](https://github.com/emaschas/BCFplugin/blob/main/Screenshot.png)
+![Screenshot](https://github.com/emaschas/BCFplugin/blob/Navis-2023/Screenshot.png)
 
 ## Installation
 
