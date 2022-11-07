@@ -3,7 +3,7 @@
 
   <PropertyGroup>
     <NavisProduct>Manage</NavisProduct>
-    <NavisVersion>2021</NavisVersion>
+    <NavisVersion>2023</NavisVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -15,7 +15,7 @@
     <AssemblyName>BCFplugin</AssemblyName>
     <Company>SUEZ</Company>
     <Product>BCFplugin</Product>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
     <FileAlignment>512</FileAlignment>
@@ -55,7 +55,8 @@
 
   <PropertyGroup>
     <LocalDir>$(ProjectDir)\</LocalDir>
-    <AppDir>%appdata%\Autodesk Navisworks $(NavisProduct) $(NavisVersion)\</AppDir>
+    <!-- Plugins in appdata not supported in Naviswork 2023 anymore :( -->
+    <AppDir>%programfiles%\Autodesk\Navisworks $(NavisProduct) $(NavisVersion)\</AppDir>
     <Plugins>$(AppDir)Plugins\</Plugins>
     <Destination>$(Plugins)$(AssemblyName)\</Destination>
   </PropertyGroup>
